@@ -40,3 +40,5 @@ Users.init({
   timestamps: false,
   modelName: 'teams',
 });
+
+export default Users;

@@ -5,10 +5,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 
 import { App } from '../app';
-import Team from '../database/models/TeamsModel';
 import { team, teams } from './services/mocks/teams'
-
-import { Response } from 'superagent';
 import TeamService from '../api/Service/TeamsService';
 
 chai.use(chaiHttp);
@@ -24,8 +21,6 @@ describe('Testa rota /teams', function() {
 
         it('testa função getAll', async function () {
             sinon.stub(Model, 'findAll').resolves(teams)
-
-
            
             const result = await teamService.getAll();
 
