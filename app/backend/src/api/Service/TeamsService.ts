@@ -12,7 +12,7 @@ class TeamService implements ITeamService {
 
   async getById(id: number): Promise<IServiceResponse> {
     const teamSelected = await this.model.findByPk(id);
-    if (!teamSelected) return { type: 404, message: 'this team does not exist' };
+    if (!teamSelected) return { type: 404, message: 'This team does not exist' };
     return { type: null, message: teamSelected };
   }
 }
