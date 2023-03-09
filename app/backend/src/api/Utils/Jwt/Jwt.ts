@@ -1,7 +1,7 @@
 import 'dotenv';
 import * as jwt from 'jsonwebtoken';
-import IJWT from '../Interfaces/Jwt/IJWT';
-import IUser from '../Interfaces/users/IUser';
+import IJWT from '../../Interfaces/Jwt/IJWT';
+import IUser from '../../Interfaces/users/IUser';
 // import { JewPayload } from 'jwt-decode';
 
 class Jwt implements IJWT {
