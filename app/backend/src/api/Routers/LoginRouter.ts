@@ -1,10 +1,14 @@
 import { Router } from 'express';
+import LoginController from '../Controller/LoginController';
 import LoginValidation from '../middlerares/loginValidation';
+import LoginService from '../Service/LoginService';
 
-const usersRouter = Router();
+const loginRouter = Router();
 
 const { validateEmail, validatePassword } = new LoginValidation();
+const loginService = new LoginService();
+const loginController = new LoginController(loginService);
 
-usersRouter.post('/', validateEmail, validatePassword);
+loginRouter.post('/', validateEmail, validatePassword, loginController.checkLogin);
 
-export default usersRouter;
+export default loginRouter;

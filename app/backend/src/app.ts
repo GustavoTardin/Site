@@ -12,8 +12,8 @@ class App {
 
     // Não remover essa rota
     this.app.get('/', (_req, res) => res.json({ ok: true }));
-    this.app.use('/teams', teamsRouter);
     this.app.use('/login', loginRouter);
+    this.app.use('/teams', teamsRouter);
   }
 
   private config():void {
