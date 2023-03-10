@@ -23,7 +23,6 @@ Match.init({
   homeTeamId: {
     allowNull: false,
     type: INTEGER,
-    field: 'home_team_id',
     references: {
       model: 'teams',
       key: 'id',
@@ -34,12 +33,10 @@ Match.init({
   homeTeamGoals: {
     allowNull: false,
     type: INTEGER,
-    field: 'home_team_goals',
   },
   awayTeamId: {
     allowNull: false,
     type: INTEGER,
-    field: 'away_team_id',
     references: {
       model: 'teams',
       key: 'id',
@@ -48,18 +45,16 @@ Match.init({
   awayTeamGoals: {
     allowNull: false,
     type: INTEGER,
-    field: 'away_team_goals',
   },
   inProgress: {
     allowNull: false,
     type: BOOLEAN,
-    field: 'in_progress',
   },
 }, {
   sequelize: db,
   underscored: true,
   timestamps: false,
-  modelName: 'teams',
+  modelName: 'matches',
 });
 
 Match.belongsTo(Team, { foreignKey: 'homeTeamId', as: 'homeTeam' });

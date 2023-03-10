@@ -14,7 +14,7 @@ class App {
     this.app.get('/', (_req, res) => res.json({ ok: true }));
     this.app.use('/login', loginRouter);
     this.app.use('/teams', teamsRouter);
-    this.app.use('matches', matchesRouter);
+    this.app.use('/matches', matchesRouter);
   }
 
   private config():void {
