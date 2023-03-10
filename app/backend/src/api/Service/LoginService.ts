@@ -1,6 +1,6 @@
 import { ModelStatic } from 'sequelize';
 import bcrypt = require('bcryptjs');
-import User from '../../database/models/UsersModel';
+import User from '../../database/models/UserModel';
 import ILoginService from '../Interfaces/users/ILoginService';
 import IServiceResponse from '../Interfaces/users/IServiceResponse';
 import Jwt from '../Utils/Jwt/Jwt';
@@ -24,7 +24,7 @@ class LoginService implements ILoginService {
 
     if (this.validateBody({ email, password })) {
       const user = await this.model.findOne({
-        attributes: ['id', 'email', 'password'],
+        attributes: ['id', 'email'],
         where: { email },
       });
 
@@ -38,7 +38,6 @@ class LoginService implements ILoginService {
         const token = this.jwt.generateToken(payload);
         return { type: null, message: token };
       }
-      return { type: 401, message: errorMessage };
     }
     return { type: 401, message: errorMessage };
   };
