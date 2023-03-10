@@ -16,13 +16,9 @@ class Jwt implements IJWT {
     return token;
   };
 
-  validateToken = (token: string): IUser | boolean => {
-    try {
-      const decryptedData = jwt.verify(token, this._mySecret) as IUser;
-      return decryptedData;
-    } catch (err) {
-      return false;
-    }
+  validateToken = (token: string): IUser => {
+    const decryptedData = jwt.verify(token, this._mySecret) as IUser;
+    return decryptedData;
   };
 }
 

@@ -6,6 +6,7 @@ import IServiceResponse from '../Interfaces/users/IServiceResponse';
 import Jwt from '../Utils/Jwt/Jwt';
 import IJWT from '../Interfaces/Jwt/IJWT';
 import loginSchema from '../Utils/Joi/loginSchema';
+import IUser from '../Interfaces/users/IUser';
 
 class LoginService implements ILoginService {
   protected model: ModelStatic<User> = User;
@@ -20,6 +21,7 @@ class LoginService implements ILoginService {
 
   checkLogin = async (email: string, password: string): Promise<IServiceResponse> => {
     const errorMessage = 'Invalid email or password';
+
     if (this.validateBody({ email, password })) {
       const user = await this.model.findOne({
         attributes: ['id', 'email', 'password'],
@@ -39,6 +41,15 @@ class LoginService implements ILoginService {
       return { type: 401, message: errorMessage };
     }
     return { type: 401, message: errorMessage };
+  };
+
+  getRole = async (token: string): Promise<IServiceResponse> => {
+    const decryptedData = this.jwt.validateToken(token) as IUser;
+    const role = await this.model.findByPk(decryptedData.id, {
+      attributes: ['role'],
+    });
+    if (role) return { type: null, message: role };
+    return { type: 401, message: 'Token must be a valid token' };
   };
 }
 
