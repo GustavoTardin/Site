@@ -8,5 +8,6 @@ const matchService = new MatchService();
 const matchController = new MatchController(matchService);
 
 matchesRouter.get('/', matchController.getAll);
+// matchesRouter.get('/', matchController.findByProgress);
 
 export default matchesRouter;
