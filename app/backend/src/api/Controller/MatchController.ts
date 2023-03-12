@@ -20,6 +20,22 @@ class MatchController {
     if (type) return res.status(type).json({ message });
     return res.status(200).json(message);
   };
+
+  finishMatch = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { type, message } = await this.service.finishMatch(Number(id));
+    if (type) return res.status(type).json({ message });
+    return res.status(200).json({ message });
+  };
+
+  updateScore = async (req: Request, res: Response) => {
+    const { id } = req.params;
+    const { homeTeamGoals, awayTeamGoals } = req.body;
+    const { type, message } = await
+    this.service.updateScore(homeTeamGoals, awayTeamGoals, Number(id));
+    if (type) return res.status(type).json({ message });
+    return res.status(200).json({ message });
+  };
 }
 
 export default MatchController;
