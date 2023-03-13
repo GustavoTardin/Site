@@ -19,8 +19,12 @@ describe('teste da rota /login', function() {
 
     it('Testa POST /login, função checkLogin em caso de sucesso', async function() {
     sinon.stub(Model, 'findOne').resolves(user);
+    const reqBody = {
+        email: 'admin@admin.com',
+        password: 'secret_admin'
+    }
      
-        const response = await chai.request(app.app).get('/login')
+        const response = await chai.request(app.app).post('/login').send(reqBody);
 
     })
 })

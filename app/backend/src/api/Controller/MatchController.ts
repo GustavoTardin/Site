@@ -36,6 +36,12 @@ class MatchController {
     if (type) return res.status(type).json({ message });
     return res.status(200).json({ message });
   };
+
+  insertMatch = async (req: Request, res: Response) => {
+    const { type, message } = await this.service.insertMatch(req.body);
+    if (type) return res.status(type).json({ message });
+    return res.status(201).json(message);
+  };
 }
 
 export default MatchController;

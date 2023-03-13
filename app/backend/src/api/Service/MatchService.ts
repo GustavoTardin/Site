@@ -1,10 +1,11 @@
 import { ModelStatic } from 'sequelize';
 import Match from '../../database/models/MatchModel';
 import Team from '../../database/models/TeamModel';
-import { IMatchService, IServiceResponse } from '../Interfaces/matches';
+import { IMatchService, IServiceResponse, INewMatchBody } from '../Interfaces/matches';
 
 class MatchService implements IMatchService {
   protected model: ModelStatic<Match> = Match;
+  protected teamModel: ModelStatic<Team> = Team;
 
   getAll = async (): Promise<IServiceResponse> => {
     const response = await this.model.findAll({
@@ -16,7 +17,7 @@ class MatchService implements IMatchService {
     return { type: null, message: response };
   };
 
-  getById = async (id: number): Promise<Match | null> => {
+  private getById = async (id: number): Promise<Match | null> => {
     const match = await this.model.findByPk(id);
     return match;
   };
@@ -54,6 +55,20 @@ class MatchService implements IMatchService {
       { where: { id } },
     );
     return { type: null, message: 'The score was changed successfully' };
+  };
+
+  insertMatch = async (
+    { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals }: INewMatchBody,
+  ): Promise<IServiceResponse> => {
+    const ids = [homeTeamId, awayTeamId];
+    const teams = await Promise.all(ids.map((e) => this.teamModel.findByPk(e)));
+    if (teams.some((e) => !e)) {
+      return { type: 404, message: 'There is no team with such id!' };
+    }
+    const newMatch = await this.model.create(
+      { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress: true },
+    );
+    return { type: null, message: newMatch };
   };
 }
 

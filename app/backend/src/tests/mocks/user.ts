@@ -1,8 +1,8 @@
-import Users from "../../database/models/UsersModel";
+import User from "../../database/models/UserModel";
 
 const user = {
     id: 1,
     email: 'raphaelpacheco@gmail.com'
-} as Users
+} as User
 
 export { user };

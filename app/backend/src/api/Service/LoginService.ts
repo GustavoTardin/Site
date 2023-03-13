@@ -1,5 +1,5 @@
 import { ModelStatic } from 'sequelize';
-import bcrypt = require('bcryptjs');
+import * as bcrypt from 'bcryptjs';
 import User from '../../database/models/UserModel';
 import ILoginService from '../Interfaces/users/ILoginService';
 import IServiceResponse from '../Interfaces/users/IServiceResponse';
@@ -24,13 +24,13 @@ class LoginService implements ILoginService {
 
     if (this.validateBody({ email, password })) {
       const user = await this.model.findOne({
-        attributes: ['id', 'email'],
+        attributes: ['id', 'email', 'password'],
         where: { email },
       });
 
       if (!user) return { type: 401, message: errorMessage };
 
-      const checkPassword = await bcrypt.compare(password, user.password);
+      const checkPassword = bcrypt.compareSync(password, user.password);
 
       if (checkPassword) {
         const payload = { id: user.id, email: user.email };

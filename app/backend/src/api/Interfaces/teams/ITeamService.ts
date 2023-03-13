@@ -1,7 +1,6 @@
-import IServiceResponse from './IServiceResponse';
-import ITeam from './ITeam';
+import Team from '../../../database/models/TeamModel';
 
 export default interface ITeamService {
-  getAll(): Promise<ITeam[]>
-  getById(id: number): Promise<IServiceResponse>
+  getAll(): Promise<Team[]>
+  getById(id: number): Promise<Team | null>
 }

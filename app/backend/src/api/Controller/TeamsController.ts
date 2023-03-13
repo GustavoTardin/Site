@@ -19,9 +19,9 @@ class TeamsController {
 
   getById = async (req: Request, res: Response) => {
     const { id } = req.params;
-    const { type, message } = await this.service.getById(Number(id));
-    if (type) return res.status(type).json({ message });
-    return res.status(200).json(message);
+    const response = await this.service.getById(Number(id));
+    if (!response) return res.status(404).json({ message: 'This team does not exist' });
+    return res.status(200).json(response);
   };
 }
 
