@@ -1,6 +1,6 @@
-import { ILeaderInfo, IMatchTeamHome } from '../Interfaces/leaderboard';
+import { ILeaderInfo, IMatchTeamAway } from '../Interfaces/leaderboard';
 
-class HomeInfo implements ILeaderInfo {
+class AwayInfo implements ILeaderInfo {
   name: string; // feito
   totalPoints = 0; // feito
   totalGames = 0; // feito
@@ -12,25 +12,25 @@ class HomeInfo implements ILeaderInfo {
   goalsBalance: number;
   efficiency: string;
 
-  constructor(team: IMatchTeamHome) {
+  constructor(team: IMatchTeamAway) {
     this.name = team.teamName;
-    this.totalGames = team.homeTeam.length;
-    team.homeTeam.forEach((e) => {
-      this.goalsFavor += e.homeTeamGoals;
-      this.goalsOwn += e.awayTeamGoals;
-      if (e.homeTeamGoals > e.awayTeamGoals) {
+    this.totalGames = team.awayTeam.length;
+    team.awayTeam.forEach((t) => {
+      this.goalsFavor += t.awayTeamGoals;
+      this.goalsOwn += t.homeTeamGoals;
+      if (t.awayTeamGoals > t.homeTeamGoals) {
         this.totalVictories += 1;
         this.totalPoints += 3;
       }
-      if (e.homeTeamGoals === e.awayTeamGoals) {
+      if (t.awayTeamGoals === t.homeTeamGoals) {
         this.totalDraws += 1;
         this.totalPoints += 1;
       }
-      if (e.homeTeamGoals < e.awayTeamGoals) this.totalLosses += 1;
+      if (t.awayTeamGoals < t.homeTeamGoals) this.totalLosses += 1;
     });
     this.goalsBalance = this.goalsFavor - this.goalsOwn;
     this.efficiency = ((this.totalPoints / (this.totalGames * 3)) * 100).toFixed(2);
   }
 }
 
-export default HomeInfo;
+export default AwayInfo;

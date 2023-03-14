@@ -1,4 +1,4 @@
-export default interface IHomeInfo {
+export default interface ILeaderInfo {
   name: string;
   totalPoints: number,
   totalGames: number,

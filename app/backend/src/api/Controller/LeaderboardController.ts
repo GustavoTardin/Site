@@ -9,8 +9,13 @@ class LeaderBoardController {
   }
 
   getHomeInfo = async (_req: Request, res: Response) => {
-    const teams = await this._service.getHomeInfo();
-    return res.status(200).json(teams);
+    const leaderboard = await this._service.getLeaderboard('homeTeam');
+    return res.status(200).json(leaderboard);
+  };
+
+  getAwayInfo = async (_req: Request, res: Response) => {
+    const leaderboard = await this._service.getLeaderboard('awayTeam');
+    return res.status(200).json(leaderboard);
   };
 }
 

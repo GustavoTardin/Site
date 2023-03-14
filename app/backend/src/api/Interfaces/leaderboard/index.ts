@@ -1,6 +1,7 @@
 import ILeaderboard from './ILeaderboard';
 import ILeaderService from './ILeaderService';
-import IHomeInfo from './IHomeInfo';
-import IMatchTeam from './IMatchTeam';
+import ILeaderInfo from './ILeaderInfo';
+import IMatchTeamHome from './IMatchTeamHome';
+import IMatchTeamAway from './IMatchTeamAway';
 
-export { ILeaderService, ILeaderboard, IHomeInfo, IMatchTeam };
+export { ILeaderService, ILeaderboard, ILeaderInfo, IMatchTeamHome, IMatchTeamAway };

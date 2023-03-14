@@ -8,5 +8,6 @@ const leaderboardService = new LeaderboardService();
 const leaderBoardController = new LeaderBoardController(leaderboardService);
 
 leaderBoardRouter.get('/home', leaderBoardController.getHomeInfo);
+leaderBoardRouter.get('/away', leaderBoardController.getAwayInfo);
 
 export default leaderBoardRouter;
