@@ -9,5 +9,5 @@ const leaderBoardController = new LeaderBoardController(leaderboardService);
 
 leaderBoardRouter.get('/home', leaderBoardController.getHomeInfo);
 leaderBoardRouter.get('/away', leaderBoardController.getAwayInfo);
-
+leaderBoardRouter.get('/', leaderBoardController.getFullLeaderboard);
 export default leaderBoardRouter;

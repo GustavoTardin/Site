@@ -10,7 +10,7 @@ class HomeInfo implements ILeaderInfo {
   goalsFavor = 0; // feito
   goalsOwn = 0; // feito
   goalsBalance: number;
-  efficiency: string;
+  efficiency;
 
   constructor(team: IMatchTeamHome) {
     this.name = team.teamName;

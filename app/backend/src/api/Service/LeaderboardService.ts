@@ -10,6 +10,7 @@ import {
 } from '../Interfaces/leaderboard';
 import orderLeaderBoard from '../Utils/orderLeaderboard';
 import AwayInfo from '../Utils/AwayInfo';
+import FullInfo from '../Utils/Jwt/FullInfo';
 
 class LeaderboardService implements ILeaderService {
   protected matchModel: ModelStatic<Match> = Match;
@@ -27,10 +28,17 @@ class LeaderboardService implements ILeaderService {
     });
 
     const leaderboard: ILeaderboard[] = table === 'homeTeam'
-      ? teams.map((e) => new HomeInfo(e as unknown as IMatchTeamHome))
-      : teams.map((t) => new AwayInfo(t as unknown as IMatchTeamAway));
+      ? teams.map((h) => new HomeInfo(h as unknown as IMatchTeamHome))
+      : teams.map((a) => new AwayInfo(a as unknown as IMatchTeamAway));
 
     return orderLeaderBoard(leaderboard);
+  };
+
+  getFullLeaderBoard = async (): Promise<ILeaderboard[]> => {
+    const home = await this.getLeaderboard('homeTeam');
+    const away = await this.getLeaderboard('awayTeam');
+    const { fullLeaderBoard } = new FullInfo(home, away);
+    return orderLeaderBoard(fullLeaderBoard);
   };
 }
 
