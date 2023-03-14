@@ -9,6 +9,8 @@ class HomeInfo implements IHomeInfo {
   totalLosses = 0; // feito
   goalsFavor = 0; // feito
   goalsOwn = 0; // feito
+  goalsBalance: number;
+  efficiency: string;
 
   constructor(team: IMatchTeam) {
     this.name = team.teamName;
@@ -24,10 +26,10 @@ class HomeInfo implements IHomeInfo {
         this.totalDraws += 1;
         this.totalPoints += 1;
       }
-      if (e.homeTeamGoals < e.awayTeamGoals) {
-        this.totalLosses += 1;
-      }
+      if (e.homeTeamGoals < e.awayTeamGoals) this.totalLosses += 1;
     });
+    this.goalsBalance = this.goalsFavor - this.goalsOwn;
+    this.efficiency = ((this.totalPoints / (this.totalGames * 3)) * 100).toFixed(2);
   }
 }
 

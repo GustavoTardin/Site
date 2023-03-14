@@ -6,5 +6,7 @@ export default interface IHomeInfo {
   totalDraws: number,
   totalLosses: number,
   goalsFavor: number,
-  goalsOwn: number
+  goalsOwn: number,
+  goalsBalance: number,
+  efficiency: string,
 }

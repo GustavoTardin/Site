@@ -4,9 +4,10 @@ import Match from '../../database/models/MatchModel';
 // import { ILeaderboard, ILeaderService } from '../Interfaces/leaderboard';
 import HomeInfo from '../Utils/HomeInfo';
 import IMatchTeam from '../Interfaces/leaderboard/IMatchTeam';
-import { ILeaderboard } from '../Interfaces/leaderboard';
+import { ILeaderboard, ILeaderService } from '../Interfaces/leaderboard';
+import orderLeaderBoard from '../Utils/orderLeaderboard';
 
-class LeaderboardService {
+class LeaderboardService implements ILeaderService {
   protected matchModel: ModelStatic<Match> = Match;
   protected teamModel: ModelStatic<Team> = Team;
 
@@ -19,10 +20,11 @@ class LeaderboardService {
         attributes: { exclude: ['id', 'homeTeamId', 'awayTeamId', 'inProgress'] },
         where: { inProgress: false },
       },
-    });
-    const leaderboard = teams.map((e) => new HomeInfo(e as unknown as IMatchTeam));
+    }) as unknown as IMatchTeam[];
 
-    return leaderboard;
+    const leaderboard: ILeaderboard[] = teams.map((e) => new HomeInfo(e));
+
+    return orderLeaderBoard(leaderboard);
   };
 }
 
