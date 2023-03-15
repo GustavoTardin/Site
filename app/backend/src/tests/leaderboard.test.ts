@@ -4,7 +4,7 @@ import * as chai from 'chai';
 // @ts-ignore
 import chaiHttp = require('chai-http');
 import { App } from '../app';
-import { homeTeamResponse, awayTeamResponse, fullOrganized, homeInfo, homeOrganized } from './mocks/leaderboard'
+import { homeTeamResponse, awayTeamResponse, fullOrganized, homeLeaderboard, homeOrganized, awayOrganized } from './mocks/leaderboard'
 import orderLeaderBoard from '../api/Utils/orderLeaderboard';
 
 chai.use(chaiHttp);
@@ -33,11 +33,18 @@ describe('Teste da rota /leaderboard', function() {
 
         const response = await chai.request(app).get('/leaderboard/home');
 
-        console.log(homeTeamResponse)
-        console.log(homeOrganized)
-
         expect(response.status).to.be.equal(200);
-        expect(response.body).to.be.deep.equal(homeOrganized);
+        expect(response.body).to.be.deep.equal(homeLeaderboard);
         
     })
+    it('teste GET /leaderboard/away', async function () {
+        sinon.stub(Model, 'findAll').resolves(awayTeamResponse as unknown as Model<any>[]);
+
+        const response = await chai.request(app).get('/leaderboard/away');
+
+        expect(response.status).to.be.equal(200);
+        expect(response.body).to.be.deep.equal(awayOrganized);
+
+    })
+    
 })

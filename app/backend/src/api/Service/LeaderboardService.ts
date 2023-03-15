@@ -27,7 +27,7 @@ class LeaderboardService implements ILeaderService {
       },
     });
 
-    console.log(teams[0].dataValues.homeTeam)
+    // console.log(teams);
 
     const leaderboard: ILeaderboard[] = table === 'homeTeam'
       ? teams.map((h) => new HomeInfo(h as unknown as IMatchTeamHome))
