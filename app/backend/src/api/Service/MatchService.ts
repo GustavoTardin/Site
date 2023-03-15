@@ -66,7 +66,7 @@ class MatchService implements IMatchService {
       return { type: 404, message: 'There is no team with such id!' };
     }
     const newMatch = await this.model.create(
-      { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress: true },
+      { homeTeamId, homeTeamGoals, awayTeamId, awayTeamGoals, inProgress: false },
     );
     return { type: null, message: newMatch };
   };
