@@ -1,4 +1,4 @@
-import { ILeaderboard } from '../../Interfaces/leaderboard';
+import { ILeaderboard } from '../Interfaces/leaderboard';
 
 class FullInfo {
   fullLeaderBoard: ILeaderboard[] = [];

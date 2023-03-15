@@ -10,7 +10,7 @@ import {
 } from '../Interfaces/leaderboard';
 import orderLeaderBoard from '../Utils/orderLeaderboard';
 import AwayInfo from '../Utils/AwayInfo';
-import FullInfo from '../Utils/Jwt/FullInfo';
+import FullInfo from '../Utils/FullInfo';
 
 class LeaderboardService implements ILeaderService {
   protected matchModel: ModelStatic<Match> = Match;
@@ -26,6 +26,8 @@ class LeaderboardService implements ILeaderService {
         where: { inProgress: false },
       },
     });
+
+    console.log(teams[0].dataValues.homeTeam)
 
     const leaderboard: ILeaderboard[] = table === 'homeTeam'
       ? teams.map((h) => new HomeInfo(h as unknown as IMatchTeamHome))

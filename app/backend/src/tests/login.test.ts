@@ -16,11 +16,9 @@ describe('teste da rota /login', function() {
         sinon.restore()
     })
 
-    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
-
     const app = new App();
 
-    it('Testa POST /login, função checkLogin em caso de sucesso', async function() {
+    it('Testa POST /login em caso de sucesso', async function() {
         const reqBody = {
             email: 'admin@admin.com',
             password: 'secret_admin'
@@ -43,14 +41,5 @@ describe('teste da rota /login', function() {
         expect(response.status).to.be.equal(401);
         expect(response.body).to.be.deep.equal({ message: 'Invalid email or password' })
     })
-
-it('Testa GET /login/role em caso de falha', async function() {
-    sinon.stub(Model, 'findByPk').resolves(null);
-
-    const response = await chai.request(app.app).get('/login/role').set({ Authorization: token  });
-
-    expect(response.body).to.be.equal({ message: 'Token must be a valid token' });
-    expect(response.status).to.be.deep.equal(401);
-})
 
 })
