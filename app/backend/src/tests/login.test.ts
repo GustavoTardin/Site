@@ -5,6 +5,7 @@ import * as chai from 'chai';
 import chaiHttp = require('chai-http');
 import { App } from '../app';
 import { user } from './mocks/user';
+import User from '../database/models/UserModel';
 
 chai.use(chaiHttp);
 
@@ -14,6 +15,8 @@ describe('teste da rota /login', function() {
     afterEach(function () {
         sinon.restore()
     })
+
+    const token = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9'
 
     const app = new App();
 
@@ -29,4 +32,25 @@ describe('teste da rota /login', function() {
         expect(response.status).to.be.equal(200)
 
     })
+    it('Testa POST /login em caso de fracasso', async function() {
+        const reqBody = {
+            email: 'fakeuser@gmail.com',
+            password: 'secret_admin'
+        }
+        sinon.stub(Model, 'findOne').resolves(null);
+        const response = await chai.request(app.app).post('/login').send(reqBody);
+
+        expect(response.status).to.be.equal(401);
+        expect(response.body).to.be.deep.equal({ message: 'Invalid email or password' })
+    })
+
+it('Testa GET /login/role em caso de falha', async function() {
+    sinon.stub(Model, 'findByPk').resolves(null);
+
+    const response = await chai.request(app.app).get('/login/role').set({ Authorization: token  });
+
+    expect(response.body).to.be.equal({ message: 'Token must be a valid token' });
+    expect(response.status).to.be.deep.equal(401);
+})
+
 })
