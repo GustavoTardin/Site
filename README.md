@@ -6,3 +6,5 @@ O front end foi feito pela Trybe, e o bak end inteiro desenvolvido por mim, toda
 até toda a lógica de API utilizando o Express. 
 
 Projeto foi todo  em Typescript, usando o paradigma de programação orientada a objetos para realização deste código, fazendo uso de conceitos de SOLID, interfaces, classes.
+
+Foi utilizado a arquitetura de Software MSC, Jwt para criações de token de acesso, além da biblioteca JOI para validações do body das requisições.
